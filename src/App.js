@@ -17,6 +17,12 @@ class App extends Component {
       center: {lat: 36.169090, lng: -115.140579}, 
       zoom: 13
     })
+    const chinatown = {lat: 36.125809, lng: -115.195884}
+    let marker = new window.google.maps.Marker({
+      position: chinatown,
+      map: map,
+      title: 'Chinatown'
+    })
   }
 
   render() {
