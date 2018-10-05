@@ -27,15 +27,37 @@ class App extends Component {
       zoom: 12
     })
 
+    // create only one instance of the info window
+    const infoWindow = new window.google.maps.InfoWindow()
+
     this.state.places.map(place => {
 
+      // create the content of the info window
+      const contentString = `<h3><strong>${place.venue.name}</strong></h3> <p> 
+        ${place.venue.location.address} <br />
+        ${place.venue.location.city} <br />
+        ${place.venue.location.state} ${place.venue.location.postalCode}<br />
+        `
+
+      // create marker for each place in the places array
       const marker = new window.google.maps.Marker({
         position: {lat: place.venue.location.lat, lng: place.venue.location.lng},
         map: map,
-        title: place.venue.name
+        title: place.venue.name,
+        animation: window.google.maps.Animation.DROP
       })
 
-      return marker
+      // add an onclick listener to open infowindow when a marker is clicked
+      marker.addListener('click', function() {
+
+        // set content of the info window
+        infoWindow.setContent(contentString)
+
+        // open the info window
+        infoWindow.open(map, marker)
+      })
+
+      return null
 
     })
 
