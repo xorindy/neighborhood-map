@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import FoursquareAPI from './api/foursquare';
-import './App.css';
+import React, { Component } from 'react'
+import axios from 'axios'
+import './App.css'
 
 class App extends Component {
 
-  componentDidMount() {
-    FoursquareAPI.search({
-      near: 'Las Vegas, NV',
-      query: 'park',
-      limit: 15
-    })
+  state = {
+    places: []
+  }
 
-    this.loadMap()
+
+  componentDidMount() {
+    this.getPlaces()
+
   }
   
   
@@ -21,10 +21,51 @@ class App extends Component {
   }
   
   initMap = () => {
+    // initialize map
     const map = new window.google.maps.Map(document.getElementById('map'), {
       center: {lat: 36.1124493, lng: -115.1716128}, 
-      zoom: 13
+      zoom: 12
     })
+
+    this.state.places.map(place => {
+
+      const marker = new window.google.maps.Marker({
+        position: {lat: place.venue.location.lat, lng: place.venue.location.lng},
+        map: map,
+        title: place.venue.name
+      })
+
+      return marker
+
+    })
+
+
+    
+  
+
+  }
+
+  getPlaces = () => {
+    const endPoint = 'https://api.foursquare.com/v2/venues/explore?'
+    const params = {
+      client_id: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
+      client_secret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
+      v: '20181004',
+      query: 'food',
+      limit: 15,
+      near: 'Las Vegas'
+    }
+
+    axios.get(endPoint + new URLSearchParams(params))
+      .then(response => {
+        this.setState({
+          // Store venues in the places array
+          places: response.data.response.groups[0].items
+        }, this.loadMap())
+      })
+      .catch(error => {
+        console.log('ERROR: ' + error)
+      })
   }
 
   render() {
@@ -35,11 +76,13 @@ class App extends Component {
           <h1 className="app-title">My Neighborhood Map</h1>
         </header>
 
-        <div id="map"></div>
+        <div id="map">
+
+        </div>
         
       </div>
       
-    );
+    )
   }
 }
 

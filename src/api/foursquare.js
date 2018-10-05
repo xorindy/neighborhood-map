@@ -5,9 +5,9 @@ class Helper {
 
     static auth() {
         const keys = {
-            clientID: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
-            clientSecret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
-            version: '20181004'
+            client_id: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
+            client_secret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
+            v: '20181004'
         };
 
         // Return keys into an array, and make a string literal of all the keys combined
