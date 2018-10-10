@@ -1,27 +1,14 @@
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
 
 .app {
   text-align: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row nowrap;
   height: 100%;
   width: 100%;
 }
 
-.app-header {
-  background-color: #282c34;
-  max-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.side-bar {
+  width: 15vw;
 }
 
 .app-link {
@@ -31,7 +18,8 @@ html, body {
 /* Map Styles */
 
 #map {
-  height: 90vh;
+  height: 100vh;
+  width: 85vw;
 
 }
 

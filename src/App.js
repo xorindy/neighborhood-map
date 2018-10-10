@@ -102,10 +102,6 @@ class App extends Component {
     return (
       <div className="app">
 
-        <header className="app-header">
-          <h1 className="app-title">My Neighborhood Map</h1>
-        </header>
-
         <Sidebar />
 
         <div id="map">
