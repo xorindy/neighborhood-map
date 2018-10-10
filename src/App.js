@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './App.css'
+import Sidebar from './components/Sidebar'
 
 class App extends Component {
 
@@ -104,6 +105,8 @@ class App extends Component {
         <header className="app-header">
           <h1 className="app-title">My Neighborhood Map</h1>
         </header>
+
+        <Sidebar />
 
         <div id="map">
 
