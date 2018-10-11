@@ -12,7 +12,7 @@ class App extends Component {
 
   componentDidMount() {
     this.getPlaces()
-    
+ 
   }
   
   
@@ -34,16 +34,16 @@ class App extends Component {
 
     // create only one instance of the info window
     const infoWindow = new window.google.maps.InfoWindow()
-    
+    let details = []
 
     this.state.places.map(place => {
-      
+
       const myPlace = {lat: place.venue.location.lat, lng: place.venue.location.lng}
-      const imageURL = `https://maps.googleapis.com/maps/api/streetview?size=300x200&location=${place.venue.location.lat},${place.venue.location.lng}&key=AIzaSyCgQ_AkG66ugXFSqnfk01xYIIlXwDWR3Tc`
+      const photoURL = `${details.prefix}300x200${details.suffix}`
 
       // create the content of the info window
       const contentString = `<h3><strong>${place.venue.name}</strong></h3> <p> 
-        <div id="venue-photo"> <img src="${imageURL}"> </div> <br />
+        <div id="venue-photo"> <img src="${photoURL}"> </div> <br />
         ${place.venue.location.address} <br />
         ${place.venue.location.city} <br />
         ${place.venue.location.state} ${place.venue.location.postalCode}<br />
@@ -56,6 +56,7 @@ class App extends Component {
         limit: 50,
         title: place.venue.name,
         animation: window.google.maps.Animation.DROP
+
       })
 
       // add an onclick listener to open infowindow when a marker is clicked
@@ -67,11 +68,33 @@ class App extends Component {
 
         // open the info window
         infoWindow.open(map, marker)
+
       })
+
+      function getDetails() {
+        const endPoint = `https://api.foursquare.com/v2/venues/${place.venue.id}/photos?`
+        const params = {
+          client_id: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
+          client_secret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
+          v: '20181010',
+        }
+    
+        axios.get(endPoint + new URLSearchParams(params))
+          .then(response => {
+              details =  response.data.response.photos.items[0]
+              console.log(details)
+            })
+            .catch (error => {
+              console.log('ERROR: ' + error)
+            })
+      }
+
+      getDetails()
 
       return null
 
     })
+
 
   }
 
@@ -80,9 +103,9 @@ class App extends Component {
     const params = {
       client_id: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
       client_secret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
-      v: '20181007',
+      v: '20181010',
       limit: 50,
-      near: 'Las Vegas, NV',
+      near: 'Las Vegas, NV'
     }
 
     axios.get(endPoint + new URLSearchParams(params))
@@ -95,6 +118,7 @@ class App extends Component {
       .catch(error => {
         console.log('ERROR: ' + error)
       })
+
   }
 
 
@@ -102,7 +126,7 @@ class App extends Component {
     return (
       <div className="app">
 
-        <Sidebar />
+        <Sidebar {...this.state}/>
 
         <div id="map">
 

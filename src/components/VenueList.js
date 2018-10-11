@@ -5,7 +5,9 @@ export default class VenueList extends Component {
     render() {
         return (
             <ul className="venue-list">
-                <ListItems />
+                {this.props.places && this.props.places.map((place, idkey) => (
+                <ListItems key={idkey} {...place}/>
+                ))}
             </ul>
         )
     }
