@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './App.css'
-import Sidebar from './components/Sidebar'
+import SideBar from './components/SideBar'
+
 
 class App extends Component {
 
   state = {
-    places: []
+    places: [],
+    photoLinks: []
   }
 
 
@@ -34,19 +36,24 @@ class App extends Component {
 
     // create only one instance of the info window
     const infoWindow = new window.google.maps.InfoWindow()
-    let details = []
-
+    // let details = this
+    
+    
     this.state.places.map(place => {
 
       const myPlace = {lat: place.venue.location.lat, lng: place.venue.location.lng}
-      const photoURL = `${details.prefix}300x200${details.suffix}`
+      //let photoURL = `${this.state.photoLinks.prefix}${this.state.photoLinks.height}x${this.state.photoLinks.width}${this.state.photoLinks.suffix}`
+      // <img src="${ photoURL }"> <br />
+     // <div id="venue-photo"> <img src="${photoURL}"> </div> <br />
+
+     /* const imageURL = `https://maps.googleapis.com/maps/api/streetview?heading=270&size=300x200&location=${place.venue.location.lat},${place.venue.location.lng}&key=AIzaSyCgQ_AkG66ugXFSqnfk01xYIIlXwDWR3Tc` */
 
       // create the content of the info window
-      const contentString = `<h3><strong>${place.venue.name}</strong></h3> <p> 
-        <div id="venue-photo"> <img src="${photoURL}"> </div> <br />
+      const contentString = `<h3><strong>${place.venue.name}</strong></h3><p>
+        
         ${place.venue.location.address} <br />
         ${place.venue.location.city} <br />
-        ${place.venue.location.state} ${place.venue.location.postalCode}<br />
+        ${place.venue.location.state} ${place.venue.location.postalCode} <br />
         `
 
       // create marker for each place in the places array
@@ -70,8 +77,9 @@ class App extends Component {
         infoWindow.open(map, marker)
 
       })
-
+      /*
       function getDetails() {
+        
         const endPoint = `https://api.foursquare.com/v2/venues/${place.venue.id}/photos?`
         const params = {
           client_id: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
@@ -81,8 +89,9 @@ class App extends Component {
     
         axios.get(endPoint + new URLSearchParams(params))
           .then(response => {
-              details =  response.data.response.photos.items[0]
-              console.log(details)
+            this.setState(state => ({
+              photoLinks: response.data.response.photos.items[0]
+            })) 
             })
             .catch (error => {
               console.log('ERROR: ' + error)
@@ -90,6 +99,7 @@ class App extends Component {
       }
 
       getDetails()
+      */
 
       return null
 
@@ -105,7 +115,8 @@ class App extends Component {
       client_secret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
       v: '20181010',
       limit: 50,
-      near: 'Las Vegas, NV'
+      near: 'Las Vegas, NV',
+      query: 'Entertainment'
     }
 
     axios.get(endPoint + new URLSearchParams(params))
@@ -122,15 +133,15 @@ class App extends Component {
   }
 
 
+
   render() {
     return (
       <div className="app">
 
-        <Sidebar {...this.state}/>
+        <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"}/>
+        <h1 className="header-title"> My neighborhood Map </h1>
 
-        <div id="map">
-
-        </div>
+        <div id="map"> </div>
         
       </div>
       

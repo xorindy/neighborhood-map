@@ -1,15 +1,12 @@
-import React, { Component } from 'react'
-import VenueList from './VenueList'
+import React from 'react'
+import {slide as Sidebar} from 'react-burger-menu'
 
-
-export default class Sidebar extends Component {
-    render() {
-        return(
-        <div className="side-bar">
+export default props => {
+        return (
+        <Sidebar {...props}>
             <input type={"search"} id={"search-bar"} placeholder={"Filter Venues"} />
 
-            <VenueList {...this.props}/>
-        </div>
+
+        </Sidebar>
         )
     }
-}
