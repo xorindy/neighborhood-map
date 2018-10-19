@@ -5,13 +5,19 @@ import SideBar from './components/SideBar'
 
 
 class App extends Component {
-
-  state = {
-    places: [],
-    photoLinks: []
+  constructor(props) {
+    super(props)
+    this.state = {
+      places: []
+    }
   }
 
-
+  onUpdate = (val) => {
+    this.setState({
+      places: val
+    })
+  };
+ 
   componentDidMount() {
     this.getPlaces()
  
@@ -36,21 +42,17 @@ class App extends Component {
 
     // create only one instance of the info window
     const infoWindow = new window.google.maps.InfoWindow()
-    // let details = this
-    
+
     
     this.state.places.map(place => {
 
       const myPlace = {lat: place.venue.location.lat, lng: place.venue.location.lng}
-      //let photoURL = `${this.state.photoLinks.prefix}${this.state.photoLinks.height}x${this.state.photoLinks.width}${this.state.photoLinks.suffix}`
-      // <img src="${ photoURL }"> <br />
-     // <div id="venue-photo"> <img src="${photoURL}"> </div> <br />
-
-     /* const imageURL = `https://maps.googleapis.com/maps/api/streetview?heading=270&size=300x200&location=${place.venue.location.lat},${place.venue.location.lng}&key=AIzaSyCgQ_AkG66ugXFSqnfk01xYIIlXwDWR3Tc` */
+      
+     const photoURL = `https://maps.googleapis.com/maps/api/streetview?heading=270&size=300x200&location=${place.venue.location.lat},${place.venue.location.lng}&key=AIzaSyCgQ_AkG66ugXFSqnfk01xYIIlXwDWR3Tc` 
 
       // create the content of the info window
       const contentString = `<h3><strong>${place.venue.name}</strong></h3><p>
-        
+        <img src="${ photoURL }"> <br />
         ${place.venue.location.address} <br />
         ${place.venue.location.city} <br />
         ${place.venue.location.state} ${place.venue.location.postalCode} <br />
@@ -77,30 +79,7 @@ class App extends Component {
         infoWindow.open(map, marker)
 
       })
-      /*
-      function getDetails() {
-        
-        const endPoint = `https://api.foursquare.com/v2/venues/${place.venue.id}/photos?`
-        const params = {
-          client_id: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
-          client_secret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
-          v: '20181010',
-        }
-    
-        axios.get(endPoint + new URLSearchParams(params))
-          .then(response => {
-            this.setState(state => ({
-              photoLinks: response.data.response.photos.items[0]
-            })) 
-            })
-            .catch (error => {
-              console.log('ERROR: ' + error)
-            })
-      }
-
-      getDetails()
-      */
-
+      
       return null
 
     })
@@ -138,8 +117,13 @@ class App extends Component {
     return (
       <div className="app">
 
-        <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"}/>
-        <h1 className="header-title"> My neighborhood Map </h1>
+        <SideBar pageWrapId={"page-wrap"} 
+          outerContainerId={"App"}  
+          onUpdate={this.onUpdate}
+          {...this.state}
+        />
+
+        <h1 className="header-title"> My Neighborhood Map </h1>
 
         <div id="map"> </div>
         

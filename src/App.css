@@ -1,3 +1,6 @@
+html, body {
+  background: #0e171d;
+}
 /* App */
 .app {
   text-align: center;
@@ -24,6 +27,8 @@ img {
 
 .header-title {
   height: 5vh;
+  color: #ffffff;
+  font-size: 2rem;
 }
 
 /* Side Bar */
@@ -50,7 +55,7 @@ img {
 
 /*color or shape of icon bars */
 .bm-burger-bars {
-  background: #373a47
+  background: #ffffff
 }
 
 /* Position and sizing of clickable cross button */
@@ -66,7 +71,7 @@ img {
 
 /* General sidebar styles */
 .bm-menu {
-  background: #373a47;
+  background: #0e171d;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
   padding: 5px;
