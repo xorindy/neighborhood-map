@@ -17,19 +17,20 @@ class SideBar extends Component {
         return(
 
             <Sidebar>
+
             <input type={"search"} id={"search-bar"} placeholder={"Filter Venues"} />
 
-            <ul onChange={this.update}
+            <ol onChange={this.update}
                 value={this.props.places}
                 className="venue-list">
             
             {this.props.places && 
              this.props.places.map((place, placeKey) => (
-                <ListItem {...place} key={placeKey}/> 
+                <ListItem {...place} key={placeKey} sidebarItemClick={this.props.sidebarItemClick}/> 
             ))}
         
             
-            </ul>
+            </ol>
 
             </Sidebar>
         )
