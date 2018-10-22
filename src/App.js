@@ -40,12 +40,12 @@ class App extends Component {
 
     axios.get(endPoint + new URLSearchParams(params))
       .then(res => {
-
         console.log(res)
         this.setState({
           places: res.data.response.venues,
           center: res.data.response.geocode.feature.geometry.center,
           markers: res.data.response.venues.map(venue => {
+            
             return {
               lat: venue.location.lat,
               lng: venue.location.lng,
