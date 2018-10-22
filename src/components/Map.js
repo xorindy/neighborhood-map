@@ -1,19 +1,32 @@
 import React, { Component } from 'react'
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
+import { withScriptjs, withGoogleMap, GoogleMap, InfoWindow ,Marker } from 'react-google-maps'
 
 const MyMapComponent = withScriptjs(
     withGoogleMap(prop => (
         <GoogleMap
-        
+
             defaultOptions={{ styles: mapStyle }}
             defaultZoom={13}
             defaultCenter={{ lat: 36.1124493, lng: -115.1716128 }}
             zoom={prop.zoom}
-            center={prop.center}
+            center= {{
+                lat: parseFloat(prop.center.lat),
+                lng: parseFloat(prop.center.lng)
+            }}
         >
 
             {prop.markers && prop.markers.filter(marker => marker.isVisible).map((marker, idx) => (
-            <Marker key={idx} position={{lat: marker.lat, lng: marker.lng}} />
+            <Marker key={idx} 
+                    position={{lat: marker.lat, lng: marker.lng}} 
+                    onClick={() => prop.markerClick(marker)}>
+
+                {marker.isOpen && 
+                    <InfoWindow>
+                        <p>Hello!</p>
+                    </InfoWindow>}
+                    
+            </Marker>
+
             ))}
 
         </GoogleMap>

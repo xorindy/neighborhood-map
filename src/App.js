@@ -3,11 +3,11 @@ import axios from 'axios'
 import './App.css'
 
 import Map from './components/Map'
-
-
 class App extends Component {
-  constructor(props) {
-    super(props)
+
+  // States that store information
+  constructor() {
+    super()
     this.state = {
       places: [],
       markers: [],
@@ -27,6 +27,7 @@ class App extends Component {
  
   }
 
+  // Get venues from Foursquare API with axios to help get request
   getPlaces = () => {
     const endPoint = 'https://api.foursquare.com/v2/venues/search?'
     const params = {
@@ -40,7 +41,6 @@ class App extends Component {
 
     axios.get(endPoint + new URLSearchParams(params))
       .then(res => {
-        console.log(res)
         this.setState({
           places: res.data.response.venues,
           center: res.data.response.geocode.feature.geometry.center,
@@ -64,7 +64,28 @@ class App extends Component {
 
   }
 
+  // Handles closing all markers that are open
+  closeMarkers = () => {
+    const markers = this.state.markers.map(marker => {
+      marker.isOpen = false
+      return marker
+    })
+    this.setState({markers: Object.assign(this.state.markers, markers)})
+  }
+
+  // Handles opening of the marker when clicked
+  markerClick = (marker) => {
+    // close all open markers first before opening a new one
+    this.closeMarkers() 
+
+    marker.isOpen = true
+    this.setState({
+      markers: Object.assign(this.state.markers, marker)
+    })
+  }
   
+
+  // Handles opening items in the sidebar
   sidebarItemClick = (place) => {
     console.log(place)    
   }
@@ -74,11 +95,10 @@ class App extends Component {
     return (
       <div className="app">
 
-
         <h1 className="header-title"> Food in Las Vegas </h1>
 
       <div id="map">
-        <Map {...this.state}/>
+        <Map {...this.state} markerClick={this.markerClick}/>
       </div>
         
 
