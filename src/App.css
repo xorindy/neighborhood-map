@@ -20,8 +20,8 @@ html, body {
 }
 
 img {
-  width: 300px;
-  height: 200px;
+  width: 200px;
+  height: 150px;
 }
 
 .header-title {
@@ -114,4 +114,8 @@ img {
 .list-item:hover {
   color: #fa8072;
   cursor: pointer;
+}
+
+.venue-name {
+  font-weight: bold;
 }

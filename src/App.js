@@ -33,10 +33,10 @@ class App extends Component {
     const params = {
       client_id: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
       client_secret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
-      v: '20181010',
+      v: '20181021',
       limit: 15,
       near: 'Las Vegas, NV',
-      query: 'Food'
+      query: 'restaurant'
     }
 
     axios.get(endPoint + new URLSearchParams(params))
@@ -50,8 +50,8 @@ class App extends Component {
               lat: venue.location.lat,
               lng: venue.location.lng,
               isOpen: false,  //is info window open
-              isVisible: true //is marker visible
-
+              isVisible: true, //is marker visible
+              id: venue.id
             }
           })
         })
@@ -60,6 +60,28 @@ class App extends Component {
       })
       .catch(error => {
         console.log('ERROR: ' + error)
+      })
+
+  }
+
+  getDetails = () => {
+    const endPoint = `https://api.foursquare.com/v2/venues/${this.state.markers.id}?`
+    const params = {
+      client_id: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
+      client_secret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
+      v: '20181021'}
+
+    axios.get(endPoint + new URLSearchParams(params))
+      .then(res => {
+        const venue = this.state.places.find(place => place.id === this.state.markers.id)
+        const updateDetails = Object.assign(venue, res.data.response.venue)
+        console.log(updateDetails)
+        this.setState({
+          places: Object.assign(this.state.places, updateDetails)
+        })
+      })
+      .catch(error => {
+        console.log('Sorry, No image available.')
       })
 
   }
@@ -80,8 +102,13 @@ class App extends Component {
 
     marker.isOpen = true
     this.setState({
-      markers: Object.assign(this.state.markers, marker)
+      markers: Object.assign(this.state.markers, marker),
+      center: {lat: this.state.markers.lat, lng: this.state.markers.lng}
     })
+
+    
+
+    this.getDetails()
   }
   
 

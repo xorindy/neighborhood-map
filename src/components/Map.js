@@ -2,34 +2,43 @@ import React, { Component } from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, InfoWindow ,Marker } from 'react-google-maps'
 
 const MyMapComponent = withScriptjs(
-    withGoogleMap(prop => (
+    withGoogleMap(props => (
         <GoogleMap
 
             defaultOptions={{ styles: mapStyle }}
             defaultZoom={13}
             defaultCenter={{ lat: 36.1124493, lng: -115.1716128 }}
-            zoom={prop.zoom}
+            zoom={props.zoom}
             center= {{
-                lat: parseFloat(prop.center.lat),
-                lng: parseFloat(prop.center.lng)
+                lat: parseFloat(props.center.lat),
+                lng: parseFloat(props.center.lng)
             }}
         >
 
-            {prop.markers && prop.markers.filter(marker => marker.isVisible).map((marker, idx) => (
-            <Marker key={idx} 
+            {props.markers && props.markers.filter(marker => marker.isVisible).map((marker, idx) => {
+
+                const venueInfo=props.places.find(venue => venue.id === marker.id)
+
+                return (<Marker key={idx} 
                     position={{lat: marker.lat, lng: marker.lng}} 
-                    onClick={() => prop.markerClick(marker)}>
+                    onClick={() => props.markerClick(marker)}>
 
-                {marker.isOpen && 
+                {marker.isOpen && venueInfo.bestPhoto && (
                     <InfoWindow>
-                        <p>Hello!</p>
-                    </InfoWindow>}
-                    
-            </Marker>
+                        <div className="info-window">
+                            <p className="venue-name">{venueInfo.name}</p>
+                            <img src={`${venueInfo.bestPhoto.prefix}200x150${venueInfo.bestPhoto.suffix}`} alt={`${venueInfo.name}`}></img>
 
-            ))}
+                        </div>
+                    </InfoWindow>
+                )}
+
+            </Marker>
+                )
+            })}
 
         </GoogleMap>
+
     ))
 )
 
