@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './App.css'
-import SideBar from './components/SideBar'
+
 import Map from './components/Map'
 
 
@@ -9,7 +9,10 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      places: []
+      places: [],
+      markers: [],
+      center: [],
+      zoom: 13
     }
   }
 
@@ -25,22 +28,35 @@ class App extends Component {
   }
 
   getPlaces = () => {
-    const endPoint = 'https://api.foursquare.com/v2/venues/explore?'
+    const endPoint = 'https://api.foursquare.com/v2/venues/search?'
     const params = {
       client_id: '1OHRXNFKHBMCPQXLUR32TQ4FG2HCIVDFERWN2RVBFPH34MDH',
       client_secret: 'YTCU10YMNIIM2IMMR1M23DXZV021G45EVSWECJHYWLGQU0IP',
       v: '20181010',
-      limit: 50,
+      limit: 15,
       near: 'Las Vegas, NV',
       query: 'Food'
     }
 
     axios.get(endPoint + new URLSearchParams(params))
-      .then(response => {
+      .then(res => {
+
+        console.log(res)
         this.setState({
-          // Store venues in the places array
-          places: response.data.response.groups[0].items
-        }, this.loadMap())
+          places: res.data.response.venues,
+          center: res.data.response.geocode.feature.geometry.center,
+          markers: res.data.response.venues.map(venue => {
+            return {
+              lat: venue.location.lat,
+              lng: venue.location.lng,
+              isOpen: false,  //is info window open
+              isVisible: true //is marker visible
+
+            }
+          })
+        })
+
+
       })
       .catch(error => {
         console.log('ERROR: ' + error)
@@ -58,17 +74,11 @@ class App extends Component {
     return (
       <div className="app">
 
-        <SideBar pageWrapId={"page-wrap"} 
-          outerContainerId={"App"}  
-          onUpdate={this.onUpdate}
-          sidebarItemClick={this.sidebarItemClick}
-          {...this.state}
-        />
 
         <h1 className="header-title"> Food in Las Vegas </h1>
-        
+
       <div id="map">
-        <Map />
+        <Map {...this.state}/>
       </div>
         
 
