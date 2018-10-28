@@ -4,8 +4,9 @@ class ListItem extends Component {
 
     render() {
         return(
-            <li className="list-item" onClick={ () => this.props.sidebarItemClick(this.props.venue) }>
-                {this.props.venue.name}
+            <li className="list-item" onClick={ () => this.props.sidebarItemClick(this.props) }>
+                {this.props.name}
+                
             </li>
             
         )

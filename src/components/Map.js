@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, InfoWindow ,Marker } from 'react-google-maps'
 
+
 const MyMapComponent = withScriptjs(
     withGoogleMap(props => (
         <GoogleMap
@@ -24,17 +25,35 @@ const MyMapComponent = withScriptjs(
                     onClick={() => props.markerClick(marker)}>
 
                 {marker.isOpen && venueInfo.bestPhoto && (
+                    
                     <InfoWindow>
                         <div className="info-window">
                             <p className="venue-name">{venueInfo.name}</p>
                             <img src={`${venueInfo.bestPhoto.prefix}200x150${venueInfo.bestPhoto.suffix}`} alt={`${venueInfo.name}`}></img>
-
+                            <p className="venue-address">
+                                {venueInfo.location.address} <br />
+                                {venueInfo.location.formattedAddress[1]}
+                            </p>
                         </div>
                     </InfoWindow>
                 )}
 
+                {marker.isOpen && !venueInfo.bestPhoto && (
+                    <InfoWindow>
+                    <div className="info-window">
+                        <p className="venue-name">{venueInfo.name}</p>
+                        <img src="https://fakeimg.pl/200x150/?text=No+Image+Available&font=museos&font_size=26" alt={`${venueInfo.name}`}></img>
+                        <p className="venue-address">
+                            {venueInfo.location.address} <br />
+                            {venueInfo.location.formattedAddress[1]}
+                        </p>
+                    </div>
+                </InfoWindow>
+                )}
+
             </Marker>
                 )
+
             })}
 
         </GoogleMap>

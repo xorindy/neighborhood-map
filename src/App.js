@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './App.css'
-
+import SideBar from './components/SideBar'
 import Map from './components/Map'
 class App extends Component {
 
@@ -12,13 +12,14 @@ class App extends Component {
       places: [],
       markers: [],
       center: [],
-      zoom: 13
+      zoom: 13,
+      query: ""
     }
   }
 
-  onUpdate = (val) => {
+  updateQuery = (newQuery) => {
     this.setState({
-      places: val
+      query: newQuery
     })
   };
  
@@ -75,7 +76,7 @@ class App extends Component {
       .then(res => {
         const venue = this.state.places.find(place => place.id === this.state.markers.id)
         const updateDetails = Object.assign(venue, res.data.response.venue)
-        console.log(updateDetails)
+        
         this.setState({
           places: Object.assign(this.state.places, updateDetails)
         })
@@ -105,16 +106,16 @@ class App extends Component {
       markers: Object.assign(this.state.markers, marker),
       center: {lat: this.state.markers.lat, lng: this.state.markers.lng}
     })
-
-    
-
     this.getDetails()
   }
   
 
+
   // Handles opening items in the sidebar
   sidebarItemClick = (place) => {
-    console.log(place)    
+    const marker = this.state.markers.find(marker => marker.id === place.id)
+    this.markerClick(marker)
+    
   }
 
   render() {
@@ -122,11 +123,15 @@ class App extends Component {
     return (
       <div className="app">
 
-        <h1 className="header-title"> Food in Las Vegas </h1>
+        <h1 className="header-title"> Las Vegas, NV </h1>
 
-      <div id="map">
-        <Map {...this.state} markerClick={this.markerClick}/>
-      </div>
+        <SideBar {...this.state}  
+          updateQuery={this.updateQuery}
+          sidebarItemClick={this.sidebarItemClick}/>
+
+        <div id="map">
+          <Map {...this.state} markerClick={this.markerClick} />
+        </div>
         
 
       </div>
