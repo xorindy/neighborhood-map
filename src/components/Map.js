@@ -21,7 +21,8 @@ const MyMapComponent = withScriptjs(
                 const venueInfo=props.places.find(venue => venue.id === marker.id)
 
                 return (<Marker key={idx} 
-                    position={{lat: marker.lat, lng: marker.lng}} 
+                    position={{lat: marker.lat, lng: marker.lng}}
+                
                     onClick={() => props.markerClick(marker)}>
 
                 {marker.isOpen && venueInfo.bestPhoto && (
@@ -29,7 +30,7 @@ const MyMapComponent = withScriptjs(
                     <InfoWindow>
                         <div className="info-window">
                             <p className="venue-name">{venueInfo.name}</p>
-                            <img src={`${venueInfo.bestPhoto.prefix}200x150${venueInfo.bestPhoto.suffix}`} alt={`${venueInfo.name}`}></img>
+                            <img src={`${venueInfo.bestPhoto.prefix}200x150${venueInfo.bestPhoto.suffix}`} className="venue-photo" alt={`${venueInfo.name}`}></img>
                             <p className="venue-address">
                                 {venueInfo.location.address} <br />
                                 {venueInfo.location.formattedAddress[1]}
@@ -61,7 +62,7 @@ const MyMapComponent = withScriptjs(
     ))
 )
 
-const mapStyle = [{"featureType":"administrative","elementType":"labels","stylers":[{"visibility":"simplified"},{"color":"#e94f3f"}]},{"featureType":"landscape","elementType":"all","stylers":[{"visibility":"on"},{"gamma":"0.50"},{"hue":"#ff4a00"},{"lightness":"-79"},{"saturation":"-86"}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"hue":"#ff1700"}]},{"featureType":"landscape.natural.landcover","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#ff0000"}]},{"featureType":"poi","elementType":"all","stylers":[{"color":"#e74231"},{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.text.stroke","stylers":[{"color":"#4d6447"},{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"color":"#f0ce41"},{"visibility":"off"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"color":"#363f42"}]},{"featureType":"road","elementType":"all","stylers":[{"color":"#231f20"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#6c5e53"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#313639"},{"visibility":"off"}]},{"featureType":"transit","elementType":"labels.text","stylers":[{"hue":"#ff0000"}]},{"featureType":"transit","elementType":"labels.text.fill","stylers":[{"visibility":"simplified"},{"hue":"#ff0000"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#0e171d"}]}]
+const mapStyle = [{"featureType":"road","stylers":[{"hue":"#5e00ff"},{"saturation":-79}]},{"featureType":"poi","stylers":[{"saturation":-78},{"hue":"#6600ff"},{"lightness":-47},{"visibility":"off"}]},{"featureType":"road.local","stylers":[{"lightness":22}]},{"featureType":"landscape","stylers":[{"hue":"#6600ff"},{"saturation":-11}]},{},{},{"featureType":"water","stylers":[{"saturation":-65},{"hue":"#1900ff"},{"lightness":8}]},{"featureType":"road.local","stylers":[{"weight":1.3},{"lightness":30}]},{"featureType":"transit","stylers":[{"visibility":"simplified"},{"hue":"#5e00ff"},{"saturation":-16}]},{"featureType":"transit.line","stylers":[{"saturation":-72}]},{}]
 export default class Map extends Component {
 
     render() {

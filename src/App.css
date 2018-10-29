@@ -1,5 +1,5 @@
 html, body {
-  background: #0e171d;
+  background: #5c516d;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -7,7 +7,6 @@ html, body {
 }
 /* App */
 .app {
-  text-align: center;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -19,7 +18,7 @@ html, body {
   overflow: auto;
 }
 
-img {
+img.venue-photo {
   width: 200px;
   height: 150px;
 }
@@ -28,6 +27,7 @@ img {
   height: 5vh;
   color: #ffffff;
   font-size: 2rem;
+  text-align: center;
 }
 
 /* Side Bar */
@@ -68,10 +68,11 @@ img {
 
 /* General sidebar styles */
 .bm-menu {
-  background: #0e171d;
+  background: #7a7485;
   font-size: 1.15em;
   padding: 5px;
   padding-top: 40px;
+  align-items: center;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -81,7 +82,7 @@ img {
 
 /* Wrapper for item list */
 .bm-item-list {
-  color: #b8b7ad;
+  color: #eee4fc;
   text-decoration: none;
 }
 /* Styling of overlay */
@@ -96,24 +97,36 @@ img {
   height: 2rem;
   border: none;
   font-size: 1.25rem;
-  background-color: #05080a;
-  color: #b8b7ad;
+  background-color: #5c516d;
+  color: #ffffff;
 }
 
 .list-item {
   list-style-type: none;
-  color: #b8b7ad;
-  font-size: 1.25em;
+  color: #ffffff;
+  font-size: 1em;
   padding: 0.5rem;
-  align-items: center;
+  display: flex;
+  align-items: left;
 }
 
 .list-item:hover {
-  color: #fa8072;
+  color: #eee4fc;
   cursor: pointer;
-  background-color: #05080a;
+  background-color: #5c516d;
 }
 
 .venue-name {
   font-weight: bold;
+}
+
+.gm-style .gm-style-iw {
+  font-weight: 300;
+  font-size: 13px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.info-window {
+  max-width: 200px;
 }
