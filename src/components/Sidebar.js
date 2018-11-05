@@ -7,17 +7,23 @@ class SideBar extends Component {
     constructor() {
         super()
         this.state = {
-            query:""
+            query:"",
+            places: []
         }
     }
 
     filterVenues = () => {
-
+        if(this.state.query.trim() !== "") {
+            const venues = this.props.places.filter(venue => venue.name.toLowerCase()
+                .includes(this.state.query.toLowerCase()) )
+                return venues;
+        }
+        return this.props.places 
     }
 
     updateMapMarkers = (e) => {
         this.setState({query: e.target.value})
-        
+
         const markers = this.props.places.map(venue => {
             // convert query to lowercase and venue names to lower case
             const markerMatched = venue.name.toLowerCase().includes(e.target.value.toLowerCase())
@@ -49,9 +55,11 @@ class SideBar extends Component {
 
             <ol value={this.props.places} className="venue-list">
             
-            {this.props.places && 
-             this.props.places.map((place, placeKey) => (
-                <ListItem {...place} key={placeKey} sidebarItemClick={this.props.sidebarItemClick}/> 
+            {this.filterVenues() && 
+             this.filterVenues().map((place, placeKey) => (
+                <ListItem {...place} 
+                    key={placeKey} 
+                    sidebarItemClick={this.props.sidebarItemClick}/> 
             ))}
         
             
