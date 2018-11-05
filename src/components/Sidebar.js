@@ -4,11 +4,35 @@ import {slide as Sidebar} from 'react-burger-menu'
 
 
 class SideBar extends Component {
+    constructor() {
+        super()
+        this.state = {
+            query:""
+        }
+    }
 
-    update = (e) => {
-        console.log(e.target.value);
-        this.props.onUpdate(e.target.value);
-        this.setState({query: e.target.value});
+    filterVenues = () => {
+
+    }
+
+    updateMapMarkers = (e) => {
+        this.setState({query: e.target.value})
+        
+        const markers = this.props.places.map(venue => {
+            // convert query to lowercase and venue names to lower case
+            const markerMatched = venue.name.toLowerCase().includes(e.target.value.toLowerCase())
+            // find id matching ids
+            const marker = this.props.markers.find(marker => marker.id === venue.id)
+            // when we find a match, make the markers appear, if not, hide the marker
+            if(markerMatched) {
+                marker.isVisible = true
+            } else {
+                marker.isVisible = false
+            }
+            return marker
+        })
+
+        this.props.updateSuperState({markers})
     }
 
 
@@ -18,11 +42,12 @@ class SideBar extends Component {
 
             <Sidebar>
 
-            <input type={"search"} id={"search-bar"} placeholder={"Filter Venues"} />
+            <input type={"search"} 
+                id={"search-bar"} 
+                placeholder={"Filter Venues"} 
+                onChange={this.updateMapMarkers}/>
 
-            <ol onChange={this.update}
-                value={this.props.places}
-                className="venue-list">
+            <ol value={this.props.places} className="venue-list">
             
             {this.props.places && 
              this.props.places.map((place, placeKey) => (

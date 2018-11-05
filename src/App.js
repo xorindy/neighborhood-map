@@ -13,7 +13,9 @@ class App extends Component {
       markers: [],
       center: [],
       zoom: 13,
-      query: ""
+      updateSuperState: obj => {
+        this.setState(obj)
+      }
     }
   }
 
