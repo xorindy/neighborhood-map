@@ -16,7 +16,7 @@ class SideBar extends Component {
         if(this.state.query.trim() !== "") {
             const venues = this.props.places.filter(venue => venue.name.toLowerCase()
                 .includes(this.state.query.toLowerCase()) )
-                return venues;
+                return venues
         }
         return this.props.places 
     }
