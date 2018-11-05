@@ -47,7 +47,7 @@ img.venue-photo {
   width: 36px;
   height: 25px;
   left: 36px;
-  top: 36px;
+  top: 35px;
 }
 
 /*color or shape of icon bars */
@@ -73,6 +73,8 @@ img.venue-photo {
   padding: 5px;
   padding-top: 40px;
   align-items: center;
+  width: 300px;
+  max-width: 100%;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -129,4 +131,38 @@ img.venue-photo {
 
 .info-window {
   max-width: 200px;
+}
+
+/** Media Queries **/
+
+@media (max-width: 400px) {
+  .header-title {
+    font-size: 1.5rem;
+    text-align: right;
+    margin-right: 25px;
+  }
+
+  .bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 25px;
+    left: 36px;
+    top: 25px;
+  }
+}
+
+@media (min-width: 769px) {
+  .header-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 55px;
+  }
+
+  .bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 25px;
+    left: 36px;
+    top: 55px;
+  }
 }
