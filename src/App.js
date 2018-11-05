@@ -129,7 +129,8 @@ class App extends Component {
 
         <SideBar {...this.state}  
           updateQuery={this.updateQuery}
-          sidebarItemClick={this.sidebarItemClick}/>
+          sidebarItemClick={this.sidebarItemClick}
+          closeMarkers={this.closeMarkers}/>
 
         <div id="map">
           <Map {...this.state} markerClick={this.markerClick} />

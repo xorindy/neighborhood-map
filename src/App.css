@@ -23,6 +23,11 @@ img.venue-photo {
   height: 150px;
 }
 
+img.no-image {
+  width: 200px;
+  height: 150px;
+}
+
 .header-title {
   height: 5vh;
   color: #ffffff;
@@ -130,7 +135,9 @@ img.venue-photo {
 }
 
 .info-window {
-  max-width: 200px;
+  max-width: 250px;
+  width: 100%;
+  overflow: hidden;
 }
 
 /** Media Queries **/

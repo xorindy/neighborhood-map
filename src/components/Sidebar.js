@@ -39,6 +39,7 @@ class SideBar extends Component {
         })
 
         this.props.updateSuperState({markers})
+        this.props.closeMarkers()
     }
 
 

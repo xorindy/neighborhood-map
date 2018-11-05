@@ -51,7 +51,7 @@ const MyMapComponent = withScriptjs(
                     <InfoWindow>
                     <div className="info-window">
                         <p className="venue-name">{venueInfo.name}</p>
-                        <img src="https://fakeimg.pl/200x150/?text=No+Image+Available&font=museos&font_size=26" alt={`${venueInfo.name}`}></img>
+                        <img src="https://imgplaceholder.com/200x150/cccccc/ffffff/fa-image" alt={`${venueInfo.name}`} className="no-image"></img>
                         <p className="venue-address">
                             {venueInfo.location.address} <br />
                             {venueInfo.location.formattedAddress[1]}
