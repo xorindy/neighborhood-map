@@ -47,15 +47,24 @@ class SideBar extends Component {
 
         return(
             <div className="sidebar-content">
-            
-                <span className="closebtn" onClick={ () => this.props.closeNav() }> &times; </span>
+
+                <span className="closebtn" 
+                      onClick={ () => this.props.closeNav() }
+                      onKeyPress={ () => this.props.closeNav() }
+                      tabIndex="1"
+                      aria-label="close sidebar"
+                      role="button">
+                        close &#10008; 
+                </span>
 
                 <input  
                     id={"search-bar"} 
                     placeholder={"Filter Venues"} 
-                    onChange={this.updateMapMarkers}/>
+                    onChange={this.updateMapMarkers}
+                    aria-label="filter venues by name"
+                    tabIndex="2"/>
 
-                <ol value={this.props.places} className="venue-list">
+                <ol value={this.props.places} className="venue-list" tabIndex="-1">
             
                 {this.filterVenues() && 
                 this.filterVenues().map((place, placeKey) => (

@@ -136,20 +136,26 @@ class App extends Component {
     return (
       <div className="app">
 
-        <h1 className="header-title" tabIndex="0"> Las Vegas, NV </h1>
+        <h1 className="header-title" tabIndex="-1"> Las Vegas, NV </h1>
 
-        <span className="sidebar-btn" onClick={ () => this.openNav() } alt="menu"> &#9776; </span>
+        <span className="sidebar-btn" 
+              onClick={ () => this.openNav() } 
+              onKeyPress={ () => this.openNav() }
+              aria-label="open sidebar" 
+              role="button"
+              tabIndex="1"> &#9776; </span>
 
         <div id="sidebar" className="side-bar">
         <SideBar {...this.state}
           updateQuery={this.updateQuery}
           sidebarItemClick={this.sidebarItemClick}
           closeMarkers={this.closeMarkers}
-          closeNav={this.closeNav}/>
+          closeNav={this.closeNav}
+          />
         </div>
 
-        <div id="map">
-          <Map {...this.state} markerClick={this.markerClick} />
+        <div id="map" role="application" aria-label="map" tabIndex="-1">
+          <Map {...this.state} markerClick={this.markerClick}/>
         </div>
         
 
