@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
 class ListItem extends Component {
-
+    /* renders the list of locations for the app */
     render() {
         return(
-            <li className="list-item" 
+            <li className="list-item"
                 onClick={ () => this.props.sidebarItemClick(this.props) }
                 onKeyPress={ () => this.props.sidebarItemClick(this.props) }
                 tabIndex="3"
@@ -15,11 +15,8 @@ class ListItem extends Component {
             {this.props.name}
                 
             </li>
-
-            
-            
         )
     }
 }
 
-export default ListItem
+export default ListItem;

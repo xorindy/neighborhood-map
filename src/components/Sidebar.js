@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import ListItem from './ListItem'
 
-
-
 class SideBar extends Component {
     constructor() {
         super()
@@ -12,6 +10,7 @@ class SideBar extends Component {
         }
     }
 
+    /* function that filters locations */
     filterVenues = () => {
         if(this.state.query.trim() !== "") {
             const venues = this.props.places.filter(venue => venue.name.toLowerCase()
@@ -21,6 +20,7 @@ class SideBar extends Component {
         return this.props.places 
     }
 
+    /* updates the markers when filtering */
     updateMapMarkers = (e) => {
         this.setState({query: e.target.value})
 
@@ -37,11 +37,9 @@ class SideBar extends Component {
             }
             return marker
         })
-
         this.props.updateSuperState({markers})
         this.props.closeMarkers()
     }
-
 
     render() {
 
