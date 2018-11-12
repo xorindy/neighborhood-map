@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ListItem from './ListItem'
-import {slide as Sidebar} from 'react-burger-menu'
+
 
 
 class SideBar extends Component {
@@ -46,27 +46,28 @@ class SideBar extends Component {
     render() {
 
         return(
-
-            <Sidebar>
-
-            <input type={"search"} 
-                id={"search-bar"} 
-                placeholder={"Filter Venues"} 
-                onChange={this.updateMapMarkers}/>
-
-            <ol value={this.props.places} className="venue-list">
+            <div className="sidebar-content">
             
-            {this.filterVenues() && 
-             this.filterVenues().map((place, placeKey) => (
-                <ListItem {...place} 
-                    key={placeKey} 
-                    sidebarItemClick={this.props.sidebarItemClick}/> 
-            ))}
+                <span className="closebtn" onClick={ () => this.props.closeNav() }> &times; </span>
+
+                <input  
+                    id={"search-bar"} 
+                    placeholder={"Filter Venues"} 
+                    onChange={this.updateMapMarkers}/>
+
+                <ol value={this.props.places} className="venue-list">
+            
+                {this.filterVenues() && 
+                this.filterVenues().map((place, placeKey) => (
+                    <ListItem {...place} 
+                        key={placeKey} 
+                        sidebarItemClick={this.props.sidebarItemClick}/> 
+                ))}
         
             
-            </ol>
+                </ol>
+            </div>
 
-            </Sidebar>
         )
     }
 }

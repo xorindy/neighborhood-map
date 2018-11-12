@@ -1,7 +1,8 @@
 /*global google*/
 import React, { Component } from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, InfoWindow ,Marker } from 'react-google-maps'
- 
+
+
 const MyMapComponent = withScriptjs(
     withGoogleMap(props => (
         <GoogleMap
@@ -26,12 +27,13 @@ const MyMapComponent = withScriptjs(
                         icon={'http://maps.google.com/mapfiles/ms/icons/purple-pushpin.png'}
                         onClick={() => props.markerClick(marker)}
                         animation={
-                            arr.length === 1 
+                            marker.isOpen === true
                             ? google.maps.Animation.BOUNCE 
-                            : google.maps.Animation.DROP
+                            : marker.isOpen === false
+                            ? null
+                            : google.maps.Animation.DROP                           
                         }
                     > 
-                    
 
                     {marker.isOpen && venueInfo.bestPhoto && (
                     
@@ -62,7 +64,6 @@ const MyMapComponent = withScriptjs(
 
             </Marker>
                 )
-
             })}
 
         </GoogleMap>
@@ -71,6 +72,7 @@ const MyMapComponent = withScriptjs(
 )
 
 const mapStyle = [{"featureType":"road","stylers":[{"hue":"#5e00ff"},{"saturation":-79}]},{"featureType":"poi","stylers":[{"saturation":-78},{"hue":"#6600ff"},{"lightness":-47},{"visibility":"off"}]},{"featureType":"road.local","stylers":[{"lightness":22}]},{"featureType":"landscape","stylers":[{"hue":"#6600ff"},{"saturation":-11}]},{},{},{"featureType":"water","stylers":[{"saturation":-65},{"hue":"#1900ff"},{"lightness":8}]},{"featureType":"road.local","stylers":[{"weight":1.3},{"lightness":30}]},{"featureType":"transit","stylers":[{"visibility":"simplified"},{"hue":"#5e00ff"},{"saturation":-16}]},{"featureType":"transit.line","stylers":[{"saturation":-72}]},{}]
+
 export default class Map extends Component {
 
     render() {

@@ -1,5 +1,5 @@
 html, body {
-  background: #5c516d;
+  background: #111111;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -10,7 +10,6 @@ html, body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-
 }
 
 #map{
@@ -35,92 +34,16 @@ img.no-image {
   text-align: center;
 }
 
-/* Side Bar */
-#page-wrap {
-  overflow: auto;
-
-}
-
-/*Individual Item*/
-.bm-item {
-  padding: 0.5rem;
-}
-
-/*sidebar button*/
-.bm-burger-button {
-  position: fixed;
-  width: 36px;
-  height: 25px;
-  left: 36px;
-  top: 35px;
-}
-
-/*color or shape of icon bars */
-.bm-burger-bars {
-  background: #ffffff
-}
-
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
-  height: 24px;
-  width: 24px;
-}
-
-/* Color/shape of close button cross */
-.bm-cross {
-  background: #bdc3c7;
-}
-
-/* General sidebar styles */
-.bm-menu {
-  background: #7a7485;
-  font-size: 1.15em;
-  padding: 5px;
-  padding-top: 40px;
-  align-items: center;
-  width: 300px;
-  max-width: 100%;
-}
-
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
-}
-
-/* Wrapper for item list */
-.bm-item-list {
-  color: #eee4fc;
-  text-decoration: none;
-}
-/* Styling of overlay */
-.bm-overlay {
-  visibility: hidden;
-}
 
 /*search bar*/
 #search-bar {
-  padding: 8px;
+  padding: 3px;
   width: 100%;
   height: 2rem;
   border: none;
   font-size: 1rem;
-  background-color: #5c516d;
+  background-color: #000000;
   color: #ffffff;
-}
-
-.list-item {
-  list-style-type: none;
-  color: #ffffff;
-  font-size: 1em;
-  padding: 0.5rem;
-  display: flex;
-  align-items: left;
-}
-
-.list-item:hover {
-  color: #eee4fc;
-  cursor: pointer;
-  background-color: #5c516d;
 }
 
 .venue-name {
@@ -140,6 +63,53 @@ img.no-image {
   overflow: hidden;
 }
 
+.side-bar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 5px; /* Place content 20px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.list-item {
+  list-style-type: none;
+  padding: 5px 5px 5px 5px;
+  text-decoration: none;
+  font-size: 1.25em;
+  color: #ffffff;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.list-item:hover {
+  cursor: pointer;
+  color: #a36dff;
+}
+
+.sidebar-btn:hover {
+  text-shadow: 2px 2px 8px #6545c8;
+  cursor: pointer;
+}
+
+.closebtn {
+  color: #ffffff;
+  font-size: 3rem;
+  margin-bottom: 5px;
+  margin-right: 15px;
+  float: right;
+}
+
+.closebtn:hover {
+  cursor: pointer;
+  color: #a36dff;
+}
+
 /** Media Queries **/
 
 @media (max-width: 400px) {
@@ -147,29 +117,51 @@ img.no-image {
     font-size: 1.5rem;
     text-align: right;
     margin-right: 25px;
+    margin-top: 35px;
+  }
+  .sidebar-btn {
+    position: fixed;
+    left: 36px;
+    top: 35px;
+    margin-bottom: 32px;
+    color: #ffffff;
+    font-size: 1.5rem;
   }
 
-  .bm-burger-button {
+}
+
+@media (min-width: 401px) and (max-width: 769px) {
+  .header-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 55px;
+    margin-top: 35px;
+  }
+
+  .sidebar-btn {
     position: fixed;
-    width: 36px;
-    height: 25px;
     left: 36px;
-    top: 25px;
+    top: 35px;
+    margin-bottom: 36px;
+    color: #ffffff;
+    font-size: 2rem;
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 770px) {
   .header-title {
     font-size: 3rem;
     text-align: center;
     margin-bottom: 55px;
+    margin-top: 35px;
   }
-
-  .bm-burger-button {
+  .sidebar-btn {
     position: fixed;
-    width: 36px;
-    height: 25px;
+    width: 48px;
+    height: 48px;
     left: 36px;
-    top: 55px;
+    top: 35px;
+    color: #ffffff;
+    font-size: 3rem;
   }
 }

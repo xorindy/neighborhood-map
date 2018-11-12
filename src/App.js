@@ -3,6 +3,7 @@ import axios from 'axios'
 import './App.css'
 import SideBar from './components/SideBar'
 import Map from './components/Map'
+
 class App extends Component {
 
   // States that store information
@@ -63,6 +64,7 @@ class App extends Component {
       })
       .catch(error => {
         console.log('ERROR: ' + error)
+        alert('Unable to get venues.')
       })
 
   }
@@ -111,8 +113,6 @@ class App extends Component {
     this.getDetails()
   }
   
-
-
   // Handles opening items in the sidebar
   sidebarItemClick = (place) => {
     const marker = this.state.markers.find(marker => marker.id === place.id)
@@ -120,17 +120,33 @@ class App extends Component {
     
   }
 
+  /* Set the width of the side navigation to 250px */
+  openNav = () => {
+  document.getElementById("sidebar").style.width = "300px"
+  }
+
+  /* Set the width of the side navigation to 0 */
+  closeNav = () => {
+  document.getElementById("sidebar").style.width = "0"
+  } 
+
+
   render() {
 
     return (
       <div className="app">
 
-        <h1 className="header-title"> Las Vegas, NV </h1>
+        <h1 className="header-title" tabIndex="0"> Las Vegas, NV </h1>
 
-        <SideBar {...this.state}  
+        <span className="sidebar-btn" onClick={ () => this.openNav() } alt="menu"> &#9776; </span>
+
+        <div id="sidebar" className="side-bar">
+        <SideBar {...this.state}
           updateQuery={this.updateQuery}
           sidebarItemClick={this.sidebarItemClick}
-          closeMarkers={this.closeMarkers}/>
+          closeMarkers={this.closeMarkers}
+          closeNav={this.closeNav}/>
+        </div>
 
         <div id="map">
           <Map {...this.state} markerClick={this.markerClick} />
